@@ -1,31 +1,19 @@
+//Budget Controller
 var budgetController = (function () {
 
-  var x = 23;
 
-  var add = function (a) {
-    return x + a;
-  }
-
-  return {
-    publicTest: function (b) {
-      return add(b);
-    }
-  }
 })();
 
-
+//UI Controller
 var UIController = (function () {
   //some code
 })();
 
-
+//Global App Controller
+//where we control what happens on each event and delegate tasks
 var controller = (function (budgetCtrl, UICtrl) {
 
-  var z = budgetCtrl.publicTest(5);
-
-  return {
-    anotherPublic: function () {
-      console.log(z);
-    }
-  }
+  document.querySelector('.add__btn').addEventListener('click', function () {
+    console.log('button ws clicked')
+  });
 })(budgetController, UIController);
