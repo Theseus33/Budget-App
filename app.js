@@ -35,8 +35,23 @@ var UIController = (function () {
 //Global App Controller
 //where we control what happens on each event and delegate tasks
 var controller = (function (budgetCtrl, UICtrl) {
-  //get access to DOMstings from function above
-  var DOM = UICtrl.getDOMstrings();
+  var setupEventListeners = function () {
+
+    //get access to DOMstings from function above
+    var DOM = UICtrl.getDOMstrings();
+
+    document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem);
+
+    //add event listener to global event
+    document.addEventListener('keypress', function (event) {
+      //conitional if ENTER is pressed on input
+      if (event.keyCode === 13 || event.which === 13) {
+        ctrlAddItem();
+      }
+    });
+  }
+
+
 
   var ctrlAddItem = function () {
     //1. Get the field input data
@@ -50,17 +65,16 @@ var controller = (function (budgetCtrl, UICtrl) {
 
     //5. Display the budget on the UI
 
-  }
+  };
 
-  document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem);
-
-  //add event listener to global event
-  document.addEventListener('keypress', function (event) {
-    //conitional if ENTER is pressed on input
-    if (event.keyCode === 13 || event.which === 13) {
-      ctrlAddItem();
+  return {
+    init: function () {
+      setupEventListeners();
     }
-  });
+  };
+
 
 
 })(budgetController, UIController);
+
+controller.init();
