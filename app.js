@@ -22,7 +22,28 @@ var budgetController = (function () {
       exp: 0,
       inc: 0
     }
-  }
+  };
+
+  return {
+    addItem: function (type, des, val) {
+      var newItem;
+      // ID = last ID + 1 to create a nonrepeating unique number designation
+      //Create new ID
+      ID = data.allItems[type][data.allItems[type].length - 1].id + 1;
+
+      //Create new item based on 'inc' or 'exp' type
+      if (type === 'exp') {
+        newItem = new Expense(ID, des, val);
+      } else if (type === 'inc') {
+        newItem = new Income(ID, des, val);
+      }
+      //add data based on type to the proper income or expense array
+      data.allItems[type].push(newItem);
+      //the other function can have direct access to the new item created
+      //return the new element
+      return newItem;
+    }
+  };
 
 
 })();
