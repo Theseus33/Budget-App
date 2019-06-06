@@ -93,14 +93,33 @@ var UIController = (function () {
 
         html = '<div class="item clearfix" id="expense-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
       }
-      //replace placeholder with actual data
+      //1.replace placeholder with actual data
       newHtml = html.replace('%id%', obj.id);
       newHtml = newHtml.replace('%description%', obj.description);
       newHtml = newHtml.replace('%value%', obj.value);
       //insert the HTML into the DOM as last child of the list
       document.querySelector(element).insertAdjacentHTML('beforeend', newHtml);
     },
-    //exposing private DOMstrings to public
+
+    clearFields: function () {
+      var fields, fieldsArr;
+      //will return a list instead of an array
+      fields = document.querySelectorAll(DOMstrings.inputDescription + ', ' + DOMstrings.inputValue);
+
+      //2.convert the list into an array to access he methods
+      fieldsArr = Array.prototype.slice.call(fields);
+
+      //pass callbackfunction to affect each element of the array
+
+      //we have access to currrent value, index number and the whole array
+      //changes the value back to empty string to clear the inputs
+      fieldsArr.forEach(function (current, index, array) {
+        current.value = "";
+      });
+      //sets cursor back to first field to allow easier input of more items
+      fieldsArr[0].focus;
+    },
+    //3.exposing private DOMstrings to public
     getDOMstrings: function () {
       return DOMstrings;
     }
@@ -140,9 +159,12 @@ var controller = (function (budgetCtrl, UICtrl) {
 
     //3. Add the item to the UI
     UICtrl.addListItem(newItem, input.type);
-    //4. Calculate the budget
 
-    //5. Display the budget on the UI
+    //4. Clear the fields
+    UICtrl.clearFields();
+    //5. Calculate the budget
+
+    //6. Display the budget on the UI
 
   };
 
