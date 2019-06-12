@@ -60,7 +60,8 @@ var budgetController = (function () {
     },
 
     deleteItem: function (type, id) {
-      var ids = data.allItems[type].map(function () {
+      var ids, index;
+      ids = data.allItems[type].map(function (current) {
         return current.id;
 
       });
@@ -250,11 +251,11 @@ var controller = (function (budgetCtrl, UICtrl) {
   var ctrlDeleteItem = function (event) {
     var itemID, splitID, type, id;
 
-    itemID = console.log(event.target.parentNode.parentNode.parentNode.parentNode.id);
+    itemID = event.target.parentNode.parentNode.parentNode.parentNode.id;
 
     if (itemID) {
       //inc-1
-      spidID = itemID.split('-');
+      splitID = itemID.split('-');
       //will show if inc or exp
       type = splitID[0];
       //will show the id number
