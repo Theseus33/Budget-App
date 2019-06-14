@@ -242,6 +242,29 @@ var UIController = (function () {
       });
 
     },
+
+    formatNumber: function (num, type) {
+      /**
+       * + or - before the number
+       * exactly 2 decimal points
+       * and a comma seperating the thousands
+       */
+      //abs = absolute
+      num = Math.abs(num);
+      //resave the number to a string method that saves it to two decimal places
+      num = num.toFixed(2);
+
+      numSplit = num.split('.');
+
+      int = numSplit[0];
+      if (int.length > 3) {
+        int = int.substr(0, int.length - 3) + ',' + int.substr(int.length - 3, 3); //input 2310, output 2,310
+      }
+
+      dec = numSplit[1];
+
+      return (type === 'exp' ? '-' : '+') + ' ' + int + dec;
+    },
     //3.exposing private DOMstrings to public
     getDOMstrings: function () {
       return DOMstrings;
